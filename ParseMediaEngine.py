@@ -6,7 +6,7 @@ class Message:
     def __init__(self, text: str,
                  plain_text: str,
                  parse_mode: str,
-                 media: (types.MediaGroup, None),
+                 media: (types.InputMediaPhoto, None),
                  reply_markup: (types.ReplyKeyboardMarkup, None)):
         self.is_media = media is not None
         self.text = text
@@ -36,7 +36,6 @@ class PME:
             tag.decompose()
 
         kb = None if len(buttons) < 1 else types.InlineKeyboardMarkup()
-        media = None if len(images) < 1 else types.MediaGroup()
 
         for button in buttons:
             kb.row(
@@ -46,12 +45,9 @@ class PME:
                 )
             )
 
-        for image in images:
-            media.attach_photo(
-                types.InputMediaPhoto(
-                    media=image
+        media = types.InputMediaPhoto(
+                    media=images[0]
                 )
-            )
 
         text_formatted = str(soup.body).replace("<body>", str()).replace("</body>", str())
 
