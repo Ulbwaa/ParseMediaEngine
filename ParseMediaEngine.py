@@ -6,7 +6,7 @@ class Message:
     def __init__(self, text: str,
                  plain_text: str,
                  parse_mode: str,
-                 media: (types.InputMediaPhoto, None),
+                 media: (str, None),
                  reply_markup: (types.ReplyKeyboardMarkup, None)):
         self.is_media = media is not None
         self.text = text
@@ -45,9 +45,7 @@ class PME:
                 )
             )
 
-        media = types.InputMediaPhoto(
-                    media=images[0]
-                )
+        media = images[0] if len(images) > 0 else None
 
         text_formatted = str(soup.body).replace("<body>", str()).replace("</body>", str())
 
