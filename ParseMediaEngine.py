@@ -45,7 +45,10 @@ class PME:
                 )
             )
 
-        media = images[0] if len(images) > 0 else None
+        try:
+            media = images[0] if len(images) > 0 else None
+        except IndexError:
+            media = None
 
         text_formatted = str(soup.body).replace("<body>", str()).replace("</body>", str())
 
